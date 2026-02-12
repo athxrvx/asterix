@@ -1,30 +1,7 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-
-// Placeholder project data - reusing the image or using CSS patterns if images missing
-const projects = [
-    { 
-        id: 1, 
-        name: "GARNET", 
-        type: "LOCAL AI",
-        // Using a dark geometric pattern for the "technical" look if image fails, 
-        // but putting the path to the file found in public/
-        image: "/projects/project-01.jpg" 
-    },
-    { 
-        id: 2, 
-        name: "TERRASYNC", 
-        type: "PREDICTIVE FARMING",
-        image: "/projects/project-02.jpg" // Reusing for demo
-    },
-    { 
-        id: 3, 
-        name: "ENTROPY GRID", 
-        type: "DATA VISUALIZATION",
-        image: "/projects/project-01.jpg" 
-    }
-]
+import { projects } from '@/lib/data'
 
 export default function HeroCarousel() {
   const [current, setCurrent] = useState(0)
