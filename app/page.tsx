@@ -1,7 +1,8 @@
-import HeroCarousel from '@/components/HeroCarousel'
 import Hero from '@/components/Hero'
+import Vision from '@/components/Vision'
 import Manifesto from '@/components/Manifesto'
 import Featured from '@/components/Featured'
+import ProjectTicker from '@/components/ProjectTicker'
 import BlogSection from '@/components/BlogSection'
 import Events from '@/components/Events'
 import Updates from '@/components/Updates'
@@ -10,10 +11,11 @@ import Registration from '@/components/Registration'
 export default function Home() {
   return (
     <main className="min-h-screen w-full bg-black text-white relative">
-      <HeroCarousel />
       <Hero />
+      <Vision />
       <Manifesto />
       <Featured />
+      <ProjectTicker />
       <BlogSection />
       <Events />
       <Updates />

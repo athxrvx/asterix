@@ -1,22 +1,18 @@
 'use client'
 import { motion } from 'framer-motion'
-
-const articles = [
-    { title: "The Ethics of Synthetic Dreams", type: "CREATIVE", date: "FEB 02" },
-    { title: "Optimizing Transformer Latency", type: "TECHNICAL", date: "JAN 28" },
-    { title: "Generative Architecture Patterns", type: "RESEARCH", date: "JAN 15" },
-]
+import { articles } from '@/lib/data'
+import Link from 'next/link'
 
 export default function BlogSection() {
   return (
     <section className="py-24 px-6 md:px-12 bg-white text-black min-h-screen">
        <div className="flex justify-between items-end mb-16 border-b border-black pb-4">
            <h2 className="text-5xl md:text-7xl font-sans font-bold tracking-tighter text-black">LOGS_</h2>
-           <span className="font-mono text-xs hidden md:block">ARCHIVE AND THOUGHTS</span>
+           <Link href="/blog" className="font-mono text-xs hidden md:block hover:underline">VIEW ALL ARCHIVES</Link>
        </div>
 
-       <div className="editorial-grid gap-y-12">
-           {articles.map((article, i) => (
+       <div className="grid grid-cols-12 gap-y-12 md:gap-x-12">
+           {articles.slice(0, 3).map((article, i) => (
                <motion.article 
                   key={i}
                   initial={{ opacity: 0, y: 20 }}
@@ -33,7 +29,7 @@ export default function BlogSection() {
                        {article.title}
                    </h3>
                    <p className="mt-4 text-sm text-neutral-600 line-clamp-3">
-                       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                       {article.excerpt}
                    </p>
                </motion.article>
            ))}

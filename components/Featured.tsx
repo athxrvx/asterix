@@ -13,7 +13,7 @@ export default function Featured() {
     <section ref={targetRef} className="relative h-[300vh] bg-neutral-900 border-t border-white/10">
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
         <div className="absolute top-12 left-6 md:left-12 z-10 mix-blend-difference">
-             <h3 className="text-white font-mono text-sm tracking-widest uppercase border-b border-white pb-2 inline-block">Featured Research</h3>
+             <h3 className="text-white font-mono text-sm tracking-widest uppercase border-b border-white pb-2 inline-block">Our Member&apos;s Projects</h3>
         </div>
         
         <motion.div style={{ x }} className="flex gap-10 pl-[10vw]">
