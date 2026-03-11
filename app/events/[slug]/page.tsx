@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { getEventByIdentifier } from '@/lib/content'
 
+export const dynamic = 'force-dynamic'
+
 type EventDetailPageProps = {
   params: Promise<{ slug: string }>
 }

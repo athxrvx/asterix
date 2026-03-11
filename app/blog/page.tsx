@@ -2,6 +2,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { getAllBlogs } from '@/lib/content'
 
+export const dynamic = 'force-dynamic'
+
 export default async function BlogPage() {
   const articles = await getAllBlogs()
 

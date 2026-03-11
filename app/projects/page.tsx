@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { getAllProjects } from '@/lib/content'
 
+export const dynamic = 'force-dynamic'
+
 export default async function ProjectsPage() {
   const projects = await getAllProjects()
 

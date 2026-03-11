@@ -232,7 +232,7 @@ export async function getLatestEvents(limit = 3): Promise<EventItem[]> {
   const { data, error } = await supabase
     .from('events')
     .select('id, slug, date, title, type, seats, venue, time, summary, details, register_url')
-    .order('id', { ascending: true })
+    .order('id', { ascending: false })
     .limit(limit)
 
   if (error || !data || data.length === 0) {

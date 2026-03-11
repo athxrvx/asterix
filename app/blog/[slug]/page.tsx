@@ -5,6 +5,8 @@ import { articles as fallbackArticles } from '@/lib/data'
 import { fetchMarkdownFromUrl, getBlogBySlug } from '@/lib/content'
 import BlogMarkdown from '@/components/BlogMarkdown'
 
+export const dynamic = 'force-dynamic'
+
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>
 }

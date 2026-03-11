@@ -7,19 +7,21 @@ import BlogSection from '@/components/BlogSection'
 import Events from '@/components/Events'
 import Updates from '@/components/Updates'
 import Registration from '@/components/Registration'
+import FloatingNav from '@/components/FloatingNav'
 
 export default function Home() {
   return (
-    <main className="min-h-screen w-full bg-black text-white relative">
-      <Hero />
-      <Vision />
-      <Manifesto />
-      <Featured />
+    <main id="top" className="min-h-screen w-full bg-black text-white relative">
+      <section id="hero"><Hero /></section>
+      <section id="vision"><Vision /></section>
+      <section id="manifesto"><Manifesto /></section>
+      <section id="projects"><Featured /></section>
       <ProjectTicker />
-      <BlogSection />
-      <Events />
+      <section id="logs"><BlogSection /></section>
+      <section id="events"><Events /></section>
       <Updates />
-      <Registration />
+      <section id="register"><Registration /></section>
+      <FloatingNav />
       
       <footer className="py-12 text-center font-mono text-xs text-neutral-500 bg-white">
           <p>© 2026 ASTERIX CLUB. ALL SYSTEMS NOMINAL.</p>

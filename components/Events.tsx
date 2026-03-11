@@ -1,35 +1,8 @@
-'use client'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { supabase } from '@/lib/supabase'
+import { getLatestEvents } from '@/lib/content'
 
-type EventPreview = {
-    id: number
-    slug: string
-    date: string
-    title: string
-    type: string
-    seats: 'OPEN' | 'FULL' | 'LIMITED'
-}
-
-export default function Events() {
-        const [latestEvents, setLatestEvents] = useState<EventPreview[]>([])
-
-        useEffect(() => {
-            const loadEvents = async () => {
-                const { data, error } = await supabase
-                    .from('events')
-                    .select('id, slug, date, title, type, seats')
-                    .order('id', { ascending: true })
-                    .limit(3)
-
-                if (!error && data) {
-                    setLatestEvents(data as EventPreview[])
-                }
-            }
-
-            void loadEvents()
-        }, [])
+export default async function Events() {
+    const latestEvents = await getLatestEvents(3)
 
   return (
     <section className="py-24 px-6 md:px-12 bg-black text-white border-t border-white/10">
