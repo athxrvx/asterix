@@ -1,22 +1,46 @@
 'use client'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { supabase } from '@/lib/supabase'
 
-const events = [
-    { id: 1, date: "03.12", title: "Generative Audio Workshop", type: "WORKSHOP", seats: "FULL" },
-    { id: 2, date: "04.05", title: "Cybernetics Symposium", type: "TALK", seats: "OPEN" },
-    { id: 3, date: "04.22", title: "Render/Realtime Hackathon", type: "HACKATHON", seats: "OPEN" },
-]
+type EventPreview = {
+    id: number
+    slug: string
+    date: string
+    title: string
+    type: string
+    seats: 'OPEN' | 'FULL' | 'LIMITED'
+}
 
 export default function Events() {
+        const [latestEvents, setLatestEvents] = useState<EventPreview[]>([])
+
+        useEffect(() => {
+            const loadEvents = async () => {
+                const { data, error } = await supabase
+                    .from('events')
+                    .select('id, slug, date, title, type, seats')
+                    .order('id', { ascending: true })
+                    .limit(3)
+
+                if (!error && data) {
+                    setLatestEvents(data as EventPreview[])
+                }
+            }
+
+            void loadEvents()
+        }, [])
+
   return (
     <section className="py-24 px-6 md:px-12 bg-black text-white border-t border-white/10">
-      <div className="mb-16">
-          <h2 className="text-sm font-mono tracking-widest text-neutral-400 mb-2">UPCOMING EVENTS</h2>
-          <div className="w-full h-px bg-white/20"></div>
+      <div className="mb-16 flex justify-between items-end gap-4 border-b border-white/20 pb-4">
+          <h2 className="text-sm font-mono tracking-widest text-neutral-400">UPCOMING EVENTS</h2>
+          <Link href="/events" className="font-mono text-xs hidden md:block hover:underline">VIEW ALL EVENTS</Link>
       </div>
 
       <div className="space-y-0">
-          {events.map((event) => (
-              <div key={event.id} className="group relative border-b border-white/10 py-12 flex flex-col md:flex-row md:items-center justify-between transition-colors hover:bg-neutral-900 px-4 -mx-4">
+          {latestEvents.map((event) => (
+              <Link href={`/events/${event.id}`} key={event.id} className="group relative border-b border-white/10 py-12 flex flex-col md:flex-row md:items-center justify-between transition-colors hover:bg-neutral-900 px-4 -mx-4 block">
                   <div className="flex items-baseline gap-8">
                       <span className="text-6xl md:text-8xl font-sans font-bold text-neutral-800 group-hover:text-white transition-colors duration-500">
                           {event.date}
@@ -28,16 +52,27 @@ export default function Events() {
                   </div>
                   
                   <div className="mt-6 md:mt-0 flex items-center gap-4">
-                       <span className={`font-mono text-xs px-3 py-1 border ${event.seats === 'OPEN' ? 'border-green-500 text-green-500' : 'border-red-500 text-red-500'}`}>
+                       <span className={`font-mono text-xs px-3 py-1 border ${event.seats === 'OPEN' || event.seats === 'LIMITED' ? 'border-green-500 text-green-500' : 'border-red-500 text-red-500'}`}>
                            STATUS: {event.seats}
                        </span>
-                       <button className="w-10 h-10 rounded-full border border-white flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
-                           →
-                       </button>
+                       <span className="inline-flex items-center gap-2 font-mono text-[10px] tracking-widest uppercase border border-white/30 px-3 py-2 group-hover:bg-white group-hover:text-black transition-colors">
+                           Details
+                           <span aria-hidden="true">→</span>
+                       </span>
                   </div>
-              </div>
+              </Link>
           ))}
       </div>
+
+            <div className="mt-14 flex justify-center md:justify-end">
+                <Link
+                    href="/events"
+                    className="inline-flex items-center gap-2 border border-white px-5 py-2 font-mono text-xs tracking-widest uppercase hover:bg-white hover:text-black transition-colors"
+                >
+                    More
+                    <span aria-hidden="true">→</span>
+                </Link>
+            </div>
     </section>
   )
 }

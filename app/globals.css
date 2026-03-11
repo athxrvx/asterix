@@ -41,3 +41,66 @@ body {
     }
 }
 
+.trace-wordmark {
+  position: relative;
+  display: inline-block;
+  line-height: 0.85;
+  font-family: Stardom, var(--font-sans), sans-serif;
+  font-size: clamp(3.5rem, 16vw, 14rem);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0 0 32px rgba(255, 255, 255, 0.14);
+}
+
+.trace-main {
+  position: relative;
+  z-index: 3;
+  display: block;
+}
+
+.trace-layer {
+  position: absolute;
+  inset: 0;
+  display: block;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.trace-layer-a {
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.85);
+  transform: translateX(-0.014em);
+  clip-path: polygon(0 0, 100% 0, 100% 34%, 0 42%);
+  animation: trace-glitch-a 2.6s ease-in-out infinite;
+}
+
+.trace-layer-b {
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.65);
+  transform: translateX(0.017em);
+  clip-path: polygon(0 58%, 100% 50%, 100% 100%, 0 100%);
+  animation: trace-glitch-b 2.1s ease-in-out infinite;
+}
+
+@keyframes trace-glitch-a {
+  0%,
+  100% {
+    transform: translateX(-0.014em);
+  }
+  50% {
+    transform: translateX(-0.04em);
+  }
+}
+
+@keyframes trace-glitch-b {
+  0%,
+  100% {
+    transform: translateX(0.017em);
+  }
+  45% {
+    transform: translateX(0.05em);
+  }
+}
+

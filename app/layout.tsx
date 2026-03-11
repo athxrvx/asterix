@@ -31,6 +31,7 @@ export default function RootLayout({
     <html lang="en" className={`${sans.variable} ${serif.variable} bg-black`}>
       <head>
         <link href="https://api.fontshare.com/v2/css?f[]=stardom@400&display=swap" rel="stylesheet" />
+        <link href="https://api.fontshare.com/v2/css?f[]=nippo@700&display=swap" rel="stylesheet" />
       </head>
       <body className="bg-black text-white selection:bg-white selection:text-black antialiased overflow-x-hidden">
         <div className="noise-overlay fixed inset-0 w-full h-full pointer-events-none z-50 opacity-[0.03] mix-blend-overlay"></div>

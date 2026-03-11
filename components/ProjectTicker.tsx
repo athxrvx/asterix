@@ -1,16 +1,36 @@
 'use client'
 import { motion } from 'framer-motion'
+import { useEffect, useMemo, useState } from 'react'
+import { supabase } from '@/lib/supabase'
 
-const projects = [
-    { name: "NEURAL SYNTH", id: "PRJ_01", status: "DEPLOYED" },
-    { name: "VOID WALKER", id: "PRJ_02", status: "v2.4.0" },
-    { name: "ECHO GRID", id: "PRJ_03", status: "ARCHIVED" },
-    { name: "SENTIENT TYPE", id: "PRJ_04", status: "BETA" },
-    { name: "CHRONO LOOP", id: "PRJ_05", status: "WIP" },
-    { name: "LATENT SPACE", id: "PRJ_06", status: "LIVE" },
-]
+type ProjectRecord = {
+  id: number
+  project_name: string
+  summary: string
+  github_link: string | null
+}
 
 export default function ProjectTicker() {
+  const [projects, setProjects] = useState<ProjectRecord[]>([])
+
+  useEffect(() => {
+    const loadProjects = async () => {
+      const { data, error } = await supabase
+        .from('projects')
+        .select('id, project_name, summary, github_link')
+        .order('id', { ascending: false })
+        .limit(4)
+
+      if (!error && data) {
+        setProjects(data as ProjectRecord[])
+      }
+    }
+
+    void loadProjects()
+  }, [])
+
+  const tickerItems = useMemo(() => [...projects, ...projects], [projects])
+
   return (
     <div className="w-full bg-black border-b border-white/10 h-10 overflow-hidden relative z-50 flex items-center">
       {/* Gradient masks for smooth fade edges */}
@@ -28,16 +48,16 @@ export default function ProjectTicker() {
         }}
       >
         {/* Render items twice to create seamless loop */}
-        {[...projects, ...projects].map((p, i) => (
+        {tickerItems.map((p, i) => (
             <div key={i} className="flex items-center mx-8 gap-3 opacity-60 hover:opacity-100 transition-opacity cursor-crosshair">
                 <span className="font-mono text-[9px] text-neutral-500 uppercase tracking-widest border border-neutral-800 px-1 rounded-sm">
-                    {p.id}
+              PRJ_{p.id}
                 </span>
                 <span className="font-sans text-xs font-bold tracking-tight text-white">
-                    {p.name}
+              {p.project_name.toUpperCase()}
                 </span>
-                <span className={`text-[9px] font-mono ${p.status === 'DEPLOYED' || p.status === 'LIVE' ? 'text-green-500' : 'text-neutral-500'}`}>
-                    • {p.status}
+            <span className={`text-[9px] font-mono ${p.github_link ? 'text-green-500' : 'text-neutral-500'}`}>
+              • {p.github_link ? 'REPO' : 'INTERNAL'}
                 </span>
                 
                 {/* Separator / Decoration */}

@@ -3,6 +3,13 @@ import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
 
 export default function Registration() {
+  const domainOptions = [
+    { tag: 'DESIGN', role: 'Craft product UX, interfaces, visual systems, and brand assets.' },
+    { tag: 'RESEARCH', role: 'Run experiments, evaluate models, and document technical findings.' },
+    { tag: 'ENGINEER', role: 'Build full-stack AI features, integrations, and deployment workflows.' },
+    { tag: 'DIGITAL', role: 'Lead content, outreach, social media, and community engagement.' },
+  ]
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -93,7 +100,7 @@ export default function Registration() {
                <div className="group">
                    <label className="block font-mono text-xs mb-2 text-neutral-500 group-hover:text-black transition-colors">03 / DOMAIN</label>
                    <div className="flex gap-4 mt-4 flex-wrap">
-                       {['ENGINEERING', 'DESIGN', 'RESEARCH', 'OTHER'].map((tag) => (
+                     {domainOptions.map(({ tag }) => (
                            <label key={tag} className="flex items-center gap-2 cursor-pointer select-none">
                                <input 
                                  type="checkbox" 
@@ -117,6 +124,18 @@ export default function Registration() {
                {status === 'ERROR' && (
                  <p className="font-mono text-xs text-red-500 mt-4">ERROR IN TRANSMISSION. PLEASE RETRY.</p>
                )}
+
+               <div className="mt-14 border-t border-black/15 pt-6">
+                 <h4 className="font-mono text-xs tracking-widest text-neutral-500 mb-4">DOMAIN ROLES</h4>
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                   {domainOptions.map(({ tag, role }) => (
+                     <div key={tag} className="border border-black/15 p-4">
+                       <p className="font-mono text-xs tracking-wider text-black">{tag}</p>
+                       <p className="mt-2 text-sm text-neutral-700 leading-relaxed">{role}</p>
+                     </div>
+                   ))}
+                 </div>
+               </div>
            </form>
            )}
        </div>
